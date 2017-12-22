@@ -1,0 +1,282 @@
+@main_border_color: #999;
+
+.mlvisjs-graph {
+  position: relative;
+
+  // Network above the layout / physics div
+  // Seems to screw up clicking of network, tools, and controls..
+  // .vis-network {
+  //   z-index: 1;
+  // }
+
+  .vis-network {
+    border: 1px solid #999;
+  }
+
+  .vis-button:hover {
+    cursor: pointer;
+  }
+
+  .graph-controls {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    margin-top: 8px;
+
+    .physics-enabled {
+      margin-left: 20px;
+
+      input[type="checkbox"] {
+        font-size: larger;
+        margin-right: 2px;
+      }
+    }
+    .layout {
+      margin-left: 20px;
+    }
+  }
+
+  .fontawesome {
+    .vis-network {
+
+      // edit mode toggle
+      .vis-edit-mode {
+        top: 2px;
+        left: initial;
+        right: 2px;
+
+        .vis-button {
+          border-radius: 0;
+          display: inline-block;
+          height: 30px;
+          padding-left: 10px;
+          padding-right: 10px;
+          color: #fff;
+          font-size: 14px;
+          text-align: center;
+
+          .vis-label {
+            margin: 0;
+            margin-top: 2px;
+            display: inline-block;
+
+            &:before {
+              content: "\f044";
+              font-family: FontAwesome;
+              font-size: 18px;
+              padding-right: 5px;
+            }
+          }
+
+          &.vis-edit {
+            background-image: none;
+            background-color: #429af7;
+            border-color: #2a8df6;
+
+            &:hover {
+              background-color: #1180f5;
+              border-color: #096ed9;
+            }
+
+            .vis-label:before {
+              content: "\f044";
+            }
+          }
+        }
+      }
+
+      // edit close button
+      .vis-close {
+        background-image: none;
+        padding-top: 4px;
+
+        &:before {
+          content: "\f00d";
+          color: #111;
+          font-family: FontAwesome;
+          font-size: 20px;
+        }
+      }
+
+      // edit toolbar
+      .vis-manipulation {
+        background: white;
+        height: 38px;
+        border-bottom: 1px solid #999;
+        padding-left: 10px;
+
+        .vis-button {
+          border-radius: 0;
+          display: inline-block;
+          height: 30px;
+          margin: 0;
+          padding-left: 10px;
+          padding-right: 10px;
+          color: #111;
+          font-size: 14px;
+          text-align: center;
+          background-image: none;
+
+          &:hover {
+            box-shadow: none;
+          }
+
+          .vis-label {
+            margin: 0;
+            margin-top: 2px;
+            display: inline-block;
+
+            &:before {
+              color: #111;
+              font-family: FontAwesome;
+              font-size: 18px;
+              padding-right: 5px;
+            }
+
+            &:hover{
+              color: #1180f5;
+
+              &:before {
+                color: #1180f5;
+              }
+            }
+          }
+
+          // add node
+          &.vis-add .vis-label:before {
+            content: "\f055";
+          }
+
+          // add edge
+          &.vis-connect .vis-label:before {
+            content: "\f0c1";
+          }
+
+          // cancel adding
+          &.vis-back .vis-label:before {
+            content: "\f190";
+          }
+
+          // edit edge
+          &.vis-edit .vis-label:before {
+            content: "\f044";
+          }
+
+          // delete selected
+          &.vis-delete .vis-label:before {
+            content: "\f00d";
+          }
+        }
+
+        .vis-separator-line {
+          height: 30px;
+          background-color: #999;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    // navigation tools
+    .vis-navigation {
+      position: absolute;
+      top: 40px;
+      margin-left: 10px;
+
+      .vis-button:hover {
+        box-shadow: none;
+
+        &:before {
+          color: #999;
+          font-size: 29px;
+        }
+      }
+
+      .vis-button {
+        &.vis-up,
+        &.vis-down,
+        &.vis-left,
+        &.vis-right,
+        &.vis-zoomIn,
+        &.vis-zoomOut,
+        &.vis-zoomExtends  {
+          background-image: none;
+        }
+
+        &:before {
+          color: #ccc;
+          font-family: FontAwesome;
+          font-size: 26px;
+          padding: 5px;
+        }
+
+        &.vis-up {
+          top: 5px;
+          left: 30px;
+
+          &:before {
+            content: "\f139";
+          }
+        }
+
+        &.vis-down {
+          top: 55px;
+          left: 30px;
+
+          &:before {
+            content: "\f13a";
+          }
+        }
+
+        &.vis-left {
+          top: 30px;
+          left: 0px;
+
+          &:before {
+            content: "\f137";
+          }
+        }
+
+        &.vis-right {
+          top: 30px;
+          left: 60px;
+
+          &:before {
+            content: "\f138";
+          }
+        }
+
+        &.vis-zoomIn {
+          top: 105px;
+          left: 45px;
+
+          &:before {
+            content: "\f055";
+          }
+        }
+
+        &.vis-zoomOut {
+          top: 105px;
+          left: 15px;
+
+          &:before {
+            content: "\f056";
+          }
+        }
+
+        &.vis-zoomExtends {
+          top: 35px;
+          left: 33px;
+
+          &:before {
+            content: "\f0b2";
+            font-size: 19px;
+          }
+          &:hover:before {
+            font-size: 21px;
+          }
+        }
+      }
+    }
+  }
+}

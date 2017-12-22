@@ -1,0 +1,212 @@
+.mlvisjs-graph {
+  position: relative;
+}
+.mlvisjs-graph .vis-network {
+  border: 1px solid #999;
+}
+.mlvisjs-graph .vis-button:hover {
+  cursor: pointer;
+}
+.mlvisjs-graph .graph-controls {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  margin-top: 8px;
+}
+.mlvisjs-graph .graph-controls .physics-enabled {
+  margin-left: 20px;
+}
+.mlvisjs-graph .graph-controls .physics-enabled input[type="checkbox"] {
+  font-size: larger;
+  margin-right: 2px;
+}
+.mlvisjs-graph .graph-controls .layout {
+  margin-left: 20px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode {
+  top: 2px;
+  left: initial;
+  right: 2px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button {
+  border-radius: 0;
+  display: inline-block;
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button .vis-label {
+  margin: 0;
+  margin-top: 2px;
+  display: inline-block;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button .vis-label:before {
+  content: "\f044";
+  font-family: FontAwesome;
+  font-size: 18px;
+  padding-right: 5px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button.vis-edit {
+  background-image: none;
+  background-color: #429af7;
+  border-color: #2a8df6;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button.vis-edit:hover {
+  background-color: #1180f5;
+  border-color: #096ed9;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-edit-mode .vis-button.vis-edit .vis-label:before {
+  content: "\f044";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-close {
+  background-image: none;
+  padding-top: 4px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-close:before {
+  content: "\f00d";
+  color: #111;
+  font-family: FontAwesome;
+  font-size: 20px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation {
+  background: white;
+  height: 38px;
+  border-bottom: 1px solid #999;
+  padding-left: 10px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button {
+  border-radius: 0;
+  display: inline-block;
+  height: 30px;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #111;
+  font-size: 14px;
+  text-align: center;
+  background-image: none;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button:hover {
+  box-shadow: none;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button .vis-label {
+  margin: 0;
+  margin-top: 2px;
+  display: inline-block;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button .vis-label:before {
+  color: #111;
+  font-family: FontAwesome;
+  font-size: 18px;
+  padding-right: 5px;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button .vis-label:hover {
+  color: #1180f5;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button .vis-label:hover:before {
+  color: #1180f5;
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button.vis-add .vis-label:before {
+  content: "\f055";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button.vis-connect .vis-label:before {
+  content: "\f0c1";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button.vis-back .vis-label:before {
+  content: "\f190";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button.vis-edit .vis-label:before {
+  content: "\f044";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-button.vis-delete .vis-label:before {
+  content: "\f00d";
+}
+.mlvisjs-graph .fontawesome .vis-network .vis-manipulation .vis-separator-line {
+  height: 30px;
+  background-color: #999;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation {
+  position: absolute;
+  top: 40px;
+  margin-left: 10px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button:hover {
+  box-shadow: none;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button:hover:before {
+  color: #999;
+  font-size: 29px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-up,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-down,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-left,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-right,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomIn,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomOut,
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomExtends {
+  background-image: none;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button:before {
+  color: #ccc;
+  font-family: FontAwesome;
+  font-size: 26px;
+  padding: 5px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-up {
+  top: 5px;
+  left: 30px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-up:before {
+  content: "\f139";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-down {
+  top: 55px;
+  left: 30px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-down:before {
+  content: "\f13a";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-left {
+  top: 30px;
+  left: 0px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-left:before {
+  content: "\f137";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-right {
+  top: 30px;
+  left: 60px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-right:before {
+  content: "\f138";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomIn {
+  top: 105px;
+  left: 45px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomIn:before {
+  content: "\f055";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomOut {
+  top: 105px;
+  left: 15px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomOut:before {
+  content: "\f056";
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomExtends {
+  top: 35px;
+  left: 33px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomExtends:before {
+  content: "\f0b2";
+  font-size: 19px;
+}
+.mlvisjs-graph .fontawesome .vis-navigation .vis-button.vis-zoomExtends:hover:before {
+  font-size: 21px;
+}

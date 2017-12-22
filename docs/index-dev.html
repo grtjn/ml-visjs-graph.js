@@ -2,10 +2,10 @@
 <html>
   <head>
     <title>Minimal AngularJS App</title>
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bower_components/vis/dist/vis.min.css" />
-    <link rel="stylesheet" href="dist/ml-visjs-graph.js.min.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/vis/dist/vis.css" />
+    <link rel="stylesheet" href="dist/ml-visjs-graph.js.css" />
   </head>
   <body ng-app="app" ng-controller="ctrl">
     <p>Angular is working: <strong ng-bind="1+2 == 3"></strong></p>
@@ -19,9 +19,9 @@
         }
       }"></ml-visjs-graph>
     </div>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/vis/dist/vis.min.js"></script>
-    <script src="dist/ml-visjs-graph.js.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/vis/dist/vis.js"></script>
+    <script src="dist/ml-visjs-graph.js.js"></script>
     <script>
       angular.module('app', [])
       .directive('mlVisjsGraph', [function() {

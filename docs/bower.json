@@ -1,0 +1,14 @@
+{
+  "name": "ml-visjs-graph.js-docs",
+  "version": "0.0.0",
+  "description": "Website with live demo and docs for ml-visjs-graph.js",
+  "main": [],
+  "dependencies": {},
+  "devDependencies": {
+    "angular": "1.x",
+    "bootstrap-css-only": "3.x",
+    "font-awesome": "4.x",
+    "vis": "4.x"
+  },
+  "private": true
+}

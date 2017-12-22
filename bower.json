@@ -1,0 +1,43 @@
+{
+  "name": "ml-visjs-graph.js",
+  "version": "0.1.0",
+  "description": "Graph visualization for triples stored in MarkLogic, based on the VisJS Network library",
+  "main": [
+    "dist/ml-visjs-graph.js",
+    "dist/ml-visjs-graph.css"
+  ],
+  "dependencies": {
+    "visjs": "^3.0.0"
+  },
+  "devDependencies": {
+  },
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "grtjn"
+  ],
+  "homepage": "http://grtjn.github.io/ml-visjs-graph.js/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/grtjn/ml-visjs-graph.js.git"
+  },
+  "keywords": [
+    "visjs",
+    "marklogic",
+    "javascript"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    ".tmp",
+    "build",
+    "test",
+    "coverage",
+    "gulpfile.js",
+    "karma.conf.js",
+    "package.json"
+  ]
+}

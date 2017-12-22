@@ -1,0 +1,56 @@
+{
+  "name": "ml-visjs-graph.js",
+  "version": "0.0.0",
+  "description": "Graph visualization for triples stored in MarkLogic, based on the VisJS Network library",
+  "dependencies": {},
+  "devDependencies": {
+    "angular-jsdoc": "^1.4.2",
+    "gulp": "^3.8.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-cssnano": "^2.0.0",
+    "gulp-html2string": "^0.1.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-print": "^2.0.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-rm": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "jasmine-core": "^2.3.4",
+    "jsdoc": "^3.4.0",
+    "jshint": "^2.0.0",
+    "jshint-stylish": "^2.0.0",
+    "karma": "^1.7.1",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "Apache-2.0",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grtjn/ml-visjs-graph.js.git"
+  },
+  "keywords": [
+    "visjs",
+    "marklogic",
+    "javascript"
+  ],
+  "author": "grtjn",
+  "bugs": {
+    "url": "https://github.com/grtjn/ml-visjs-graph.js/issues"
+  },
+  "homepage": "https://github.com/grtjn/ml-visjs-graph.js",
+  "private": true
+}
