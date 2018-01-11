@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Graph visualization for triples stored in MarkLogic, based on the VisJS Network library",
   "main": [
-    "dist/ml-visjs-graph.js",
-    "dist/ml-visjs-graph.css"
+    "dist/ml-visjs-graph.js.js",
+    "dist/ml-visjs-graph.js.css"
   ],
   "dependencies": {
     "vis": "^3.0.0"
