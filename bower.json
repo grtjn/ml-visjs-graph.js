@@ -7,7 +7,7 @@
     "dist/ml-visjs-graph.css"
   ],
   "dependencies": {
-    "visjs": "^3.0.0"
+    "vis": "^3.0.0"
   },
   "devDependencies": {
   },
