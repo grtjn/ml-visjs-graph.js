@@ -1,8 +1,10 @@
 {
   "name": "ml-visjs-graph.js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Graph visualization for triples stored in MarkLogic, based on the VisJS Network library",
-  "dependencies": {},
+  "dependencies": {
+    "vis": "^3.0.0"
+  },
   "devDependencies": {
     "angular-jsdoc": "^1.4.2",
     "gulp": "^3.8.0",
@@ -52,5 +54,5 @@
     "url": "https://github.com/grtjn/ml-visjs-graph.js/issues"
   },
   "homepage": "https://github.com/grtjn/ml-visjs-graph.js",
-  "private": true
+  "private": false
 }

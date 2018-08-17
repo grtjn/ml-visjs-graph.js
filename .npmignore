@@ -1,0 +1,13 @@
+**/.*
+node_modules
+bower_components
+.tmp
+build
+test
+coverage
+gulpfile.js
+karma.conf.js
+bower.json
+docs
+jsdoc.conf.json
+
