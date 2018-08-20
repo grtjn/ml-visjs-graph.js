@@ -70,10 +70,10 @@ Please read [CONTRIBUTING.md] if you like to contribute to this project. Any hel
 
 Pre-requisites:
 
-- node
-- npm
+- node (v8+)
+- npm (v5+)
 - bower
-- gulp
+- gulp (v4+)
 
 To setup:
 
