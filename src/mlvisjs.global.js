@@ -1,6 +1,8 @@
 
-/* globals vis, mlvisjsTpls */
+/* globals mlvisjsTpls, require */
 /* jshint unused:false */
+
+var vis = vis || require('vis');
 
 var mlvisjs = (function () {
 

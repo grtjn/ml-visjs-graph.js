@@ -30,7 +30,7 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('templates', ['jshint'], function() {
+gulp.task('templates', gulp.series('jshint', function() {
   return gulp.src([
       './src/**/*.html'
     ])
@@ -54,9 +54,9 @@ gulp.task('templates', ['jshint'], function() {
       return 'writing: ' + filepath;
     }))
   ;
-});
+}));
 
-gulp.task('scripts', ['templates'], function() {
+gulp.task('scripts', gulp.series('templates', function() {
   return gulp.src([
       './build/**/*.templates.js',
       './src/**/*.global.js',
@@ -70,7 +70,7 @@ gulp.task('scripts', ['templates'], function() {
     .pipe(info(function(filepath) {
       return 'writing: ' + filepath;
     }))
-    
+
     .pipe(rename(projectName+'.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'))
@@ -78,9 +78,9 @@ gulp.task('scripts', ['templates'], function() {
       return 'writing: ' + filepath;
     }))
   ;
-});
+}));
 
-gulp.task('styles', ['scripts'], function() {
+gulp.task('styles', gulp.series('scripts', function() {
   return gulp.src([
       './less/**/*.less'
     ])
@@ -94,7 +94,7 @@ gulp.task('styles', ['scripts'], function() {
     .pipe(info(function(filepath) {
       return 'writing: ' + filepath;
     }))
-    
+
     .pipe(rename(projectName+'.min.css'))
     .pipe(minifyCss())
     .pipe(sourcemaps.write())
@@ -103,9 +103,9 @@ gulp.task('styles', ['scripts'], function() {
       return 'writing: ' + filepath;
     }))
   ;
-});
+}));
 
-gulp.task('copy-dist', ['styles'], function() {
+gulp.task('copy-dist', gulp.series('styles', function() {
   return gulp.src([
       './dist/**/*.*'
     ])
@@ -114,7 +114,7 @@ gulp.task('copy-dist', ['styles'], function() {
       return 'writing: ' + filepath;
     }))
   ;
-});
+}));
 
 gulp.task('test', function() {
   karma.start({
@@ -127,7 +127,7 @@ gulp.task('test', function() {
   });
 });
 
-gulp.task('autotest', function() {
+gulp.task('autotest', function(done) {
   karma.start({
     configFile: path.join(__dirname, './karma.conf.js'),
     autoWatch: true
@@ -135,6 +135,7 @@ gulp.task('autotest', function() {
     console.log('Karma has exited with ' + exitCode);
     //process.exit(exitCode);
   });
+  done();
 });
 
 gulp.task('clean-docs', function() {
@@ -142,12 +143,13 @@ gulp.task('clean-docs', function() {
   .pipe(rm({async: false}));
 });
 
-gulp.task('docs', ['clean-docs'], function() {
+gulp.task('docs', gulp.series('clean-docs', function(done) {
   cp.exec('./node_modules/.bin/jsdoc -c jsdoc.conf.json', function(err) {
     if (err) {
       return console.log(err);
     }
   });
-});
+  done();
+}));
 
-gulp.task('default', ['copy-dist', 'docs']);
+gulp.task('default', gulp.series('copy-dist', 'docs', function(done) { done(); }));
