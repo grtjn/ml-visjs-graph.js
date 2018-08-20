@@ -1,5 +1,30 @@
 # Change Log
 
+## [0.4.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.4.0) (2018-08-20)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.3.1...0.4.0)
+
+**Implemented enhancements:**
+
+- add getting started to README [\#4](https://github.com/grtjn/ml-visjs-graph.js/issues/4)
+
+**Fixed bugs:**
+
+- Cannot click/doubleclick nodes [\#1](https://github.com/grtjn/ml-visjs-graph.js/issues/1)
+
+## [0.3.1](https://github.com/grtjn/ml-visjs-graph.js/tree/0.3.1) (2018-08-20)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.3.0...0.3.1)
+
+**Fixed bugs:**
+
+- Make npm package work [\#6](https://github.com/grtjn/ml-visjs-graph.js/issues/6)
+
+## [0.3.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.3.0) (2018-08-20)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.2.0...0.3.0)
+
+**Fixed bugs:**
+
+- Fix npm audit issues [\#5](https://github.com/grtjn/ml-visjs-graph.js/issues/5)
+
 ## [0.2.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.2.0) (2018-08-17)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.1.0...0.2.0)
 
