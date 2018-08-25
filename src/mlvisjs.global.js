@@ -45,6 +45,7 @@ var mlvisjs = (function () {
   // static defaults
   var initialPhysics = true;
   var initialSolver = 'forceAtlas2Based';
+  var initialLayout = 'standard';
 
   var initialOptions = {
     layout: {
@@ -52,7 +53,7 @@ var mlvisjs = (function () {
       randomSeed: 2
     },
     manipulation: {
-      enabled: true// ,
+      enabled: false// ,
 //       addNode: false,
 //       addEdge: false,
 //       editEdge: false
@@ -67,7 +68,8 @@ var mlvisjs = (function () {
       shadow: true,
       borderWidthSelected: 6,
       shape: 'circularImage',
-      image: 'dist/images/generic.png',
+      brokenImage: 'dist/images/generic.png',
+      image: 'images/generic.png',
       color: {
         background: 'white',
       },
@@ -167,36 +169,62 @@ var mlvisjs = (function () {
 
     self.nodes = nodes;
     self.edges = edges;
-    self.options = initialOptions;
-    self.orbColors = initialOrbColors;
+    self.options = clone(initialOptions);
+    self.orbColors = clone(initialOrbColors);
     self.physics = initialPhysics;
     self.solver = initialSolver;
 
     // initialize visjs Network
-    self.network = new vis.Network(container, initialData, initialOptions);
+    self.network = new vis.Network(self.container, initialData, clone(self.options));
 
-    // apply default events
+    // apply defaults
     self.setEvents();
+    self.setLayout();
+    self.setPhysics();
+    self.setSolver();
   };
 
   NetworkManager.prototype = (function() {
     var setData = function(nodes, nodeOptions, edges, edgeOptions) {
       var self = this;
+      var existingIds, newIds, missingIds;
 
       if (arguments.length > 0) {
         if (self.nodes && nodes) {
+          // flush what has disappeared
+          existingIds = self.nodes.getIds();
+          newIds = nodes.map(function(node) {
+            return node.id;
+          });
+          missingIds = existingIds.filter(function(id) {
+            return !newIds.includes(id);
+          });
+          self.nodes.remove(missingIds);
+
+          // add new, and update existing
           self.nodes.update(nodes);
           if (nodeOptions) {
-            self.nodes.setOptions(nodeOptions);
+            self.nodes.setOptions(clone(nodeOptions));
           }
         } else if (nodes) {
           throw 'Error: nodes DataSet not initialized';
         }
 
         if (self.edges && edges) {
+          // flush what has disappeared
+          existingIds = self.edges.getIds();
+          newIds = edges.map(function(edge) {
+            return edge.id;
+          });
+          missingIds = existingIds.filter(function(id) {
+            return !newIds.includes(id);
+          });
+          self.edges.remove(missingIds);
+
+          // add new, and update existing
           self.edges.update(edges);
           if (edgeOptions) {
-            self.edges.setOptions(edgeOptions);
+            self.edges.setOptions(clone(edgeOptions));
           }
         } else if (edges) {
           throw 'Error: edges DataSet not initialized';
@@ -212,8 +240,18 @@ var mlvisjs = (function () {
 
         self.nodes = nodes;
         self.edges = edges;
-        // TODO: check if network exists?
-        self.network.setData(initialData);
+
+        if (nodeOptions) {
+          self.nodes.setOptions(clone(nodeOptions));
+        }
+        if (edgeOptions) {
+          self.edges.setOptions(clone(edgeOptions));
+        }
+
+        if (self.network) {
+          self.network.setData(initialData);
+          self.network.fit();
+        }
       }
     };
 
@@ -244,25 +282,26 @@ var mlvisjs = (function () {
             // decorate provided event callbacks with built-in extras
             switch (String(event)) {
               case 'click':
-                self.network.on(event, function() {
+                self.network.on(event, function(arg) {
                   doubleclick = false;
                   window.setTimeout(function() {
                     if (! doubleclick) {
-                      callback.apply(self, arguments);
+                      callback.call(self, arg);
                     }
                   }, 300);
                 });
                 break;
 
-              case 'doubleclick':
-                self.network.on(event, function() {
+              case 'doubleClick':
+                self.network.on(event, function(arg) {
                   doubleclick = true;
-                  callback.apply(self, arguments);
+                  callback.call(self, arg);
                 });
                 break;
 
               case 'afterDrawing':
-                self.network.on(event, function(ctx) {
+                self.network.on(event, function(arg) {
+                  var ctx = arg;
                   var nodePositions = self.network.getPositions();
                   self.nodes.forEach(function(node) {
                     var nodePosition = nodePositions[node.id];
@@ -343,7 +382,7 @@ var mlvisjs = (function () {
                       });
                     }
                   });
-                  callback.apply(self, arguments);
+                  callback.call(self, arg);
                 });
                 break; // case 'afterDrawing'
 
@@ -363,12 +402,31 @@ var mlvisjs = (function () {
     var setOptions = function(networkOptions) {
       var self = this;
 
+      if (networkOptions !== undefined) {
+        self.options = self.options || clone(initialOptions);
+
+        // merge options (crude method)
+        Object.keys(networkOptions).forEach(function(key) {
+          var option = networkOptions[key];
+
+          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) ) {
+            self.options[key] = self.options[key] || {};
+
+            Object.keys(option).forEach(function(subkey) {
+              var suboption = option[subkey];
+              self.options[key][subkey] = clone(suboption);
+            });
+
+          } else {
+            self.options[key] = option;
+          }
+        });
+      } else {
+        self.options = clone(initialOptions);
+      }
+
       if (self.network) {
-        if (networkOptions) {
-          self.network.setOptions(networkOptions);
-        } else {
-          self.network.setOptions(initialOptions);
-        }
+        self.network.setOptions(clone(self.options));
       }
     };
 
@@ -379,32 +437,40 @@ var mlvisjs = (function () {
           self.orbColors[key] = color;
         });
       } else {
-        self.orbColors = initialOrbColors;
+        self.orbColors = clone(initialOrbColors);
       }
-      // TODO: should nodes get repainted to get new orb colors applied?
+      if (self.network) {
+        self.network.redraw();
+      }
     };
 
     var setPhysics = function(physics) {
       var self = this;
+
       if (physics !== undefined) {
         self.physics = physics;
       } else {
         self.physics = initialPhysics;
       }
-      // TODO: check if network exists?
-      self.network.setOptions({
-        physics: {
-          enabled: self.physics
+
+      if (self.network) {
+        // keep a shadow
+        self.options.physics = self.options.physics || {};
+        self.options.physics.enabled = self.physics;
+        // only set diff
+        self.network.setOptions({
+          physics: {
+            enabled: self.physics
+          }
+        });
+        if (self.physics) {
+          self.network.stabilize();
         }
-      });
-      if (self.physics) {
-        self.network.stabilize();
       }
     };
 
     var setSolver = function(solver) {
       var self = this;
-      var options = {};
 
       if (solver !== undefined) {
         self.solver = solver;
@@ -412,71 +478,108 @@ var mlvisjs = (function () {
         self.solver = initialSolver;
       }
 
-      options.physics = { solver: self.solver };
+      // keep shadow
+      self.options.physics = self.options.physics || {};
+      self.options.physics.solver = self.solver;
 
-      if (self.solver !== 'hierarchicalRepulsion') {
-        options.layout = { hierarchical: false };
+      self.options.layout = self.options.layout || {};
+      self.options.layout.hierarchical = self.options.layout.hierarchical || {};
+      self.options.layout.hierarchical.enabled = (self.solver === 'hierarchicalRepulsion');
+
+      if (self.network) {
+        // only set diff
+        self.network.setOptions({
+          physics: {
+            solver: self.solver
+          },
+          layout: {
+            hierarchical: {
+              enabled: (self.solver === 'hierarchicalRepulsion')
+            }
+          }
+        });
+        self.network.stabilize();
       }
-
-      self.network.setOptions(options);
-      self.network.stabilize();
     };
 
     var setLayout = function(layout) {
       var self = this;
-      var options = {
-        edges: {
-          smooth: {
-            type: 'curvedCW',
-            roundness: 0.1
-          }
+
+      if (layout !== undefined) {
+        self.layout = layout;
+      } else {
+        self.layout = initialLayout;
+      }
+
+      // keep shadow
+      self.options.layout = self.options.layout || {};
+      self.options.layout.hierarchical = self.options.layout.hierarchical || {};
+      if (self.layout === 'standard') {
+        self.options.layout.hierarchical.enabled = false;
+      }
+      else if (self.layout === 'hierarchyTop') {
+        self.solver = 'hierarchicalRepulsion';
+        self.options.layout.hierarchical = {
+          enabled: true,
+          direction: 'UD',
+          sortMethod: 'directed'
+        };
+        if (self.options.edges && self.options.edges.smooth && self.options.edges.smooth.type === 'vertical') {
+          self.options.edges.smooth.type = 'horizontal';
         }
-      };
-
-      if ((layout === undefined) || (layout === 'standard')) {
-        options.layout = { hierarchical: false };
       }
-      else if (layout === 'hierarchyTop') {
+      else if (self.layout === 'hierarchyBottom') {
         self.solver = 'hierarchicalRepulsion';
-        options.layout = {
-          hierarchical: {
-            direction: 'UD',
-            sortMethod: 'directed'
-          }
+        self.options.layout.hierarchical = {
+          enabled: true,
+          direction: 'DU',
+          sortMethod: 'directed'
         };
+        if (self.options.edges && self.options.edges.smooth && self.options.edges.smooth.type === 'vertical') {
+          self.options.edges.smooth.type = 'horizontal';
+        }
       }
-      else if (layout === 'hierarchyBottom') {
+      else if (self.layout === 'hierarchyLeft') {
         self.solver = 'hierarchicalRepulsion';
-        options.layout = {
-          hierarchical: {
-            direction: 'DU',
-            sortMethod: 'directed'
-          }
+        self.options.layout.hierarchical = {
+          enabled: true,
+          direction: 'LR',
+          sortMethod: 'directed'
         };
+        if (self.options.edges && self.options.edges.smooth && self.options.edges.smooth.type === 'horizontal') {
+          self.options.edges.smooth.type = 'vertical';
+        }
       }
-      else if (layout === 'hierarchyLeft') {
+      else if (self.layout === 'hierarchyRight') {
         self.solver = 'hierarchicalRepulsion';
-        options.layout = {
-          hierarchical: {
-            direction: 'LR',
-            sortMethod: 'directed'
-          }
+        self.options.layout.hierarchical = {
+          enabled: true,
+          direction: 'RL',
+          sortMethod: 'directed'
         };
-      }
-      else if (layout === 'hierarchyRight') {
-        self.solver = 'hierarchicalRepulsion';
-        options.layout = {
-          hierarchical: {
-            direction: 'RL',
-            sortMethod: 'directed'
-          }
-        };
+        if (self.options.edges && self.options.edges.smooth && self.options.edges.smooth.type === 'horizontal') {
+          self.options.edges.smooth.type = 'vertical';
+        }
       }
 
-      options.physics = { solver: self.solver };
+      self.options.physics = self.options.physics || {};
+      self.options.physics.solver = self.solver;
 
-      self.network.setOptions(options);
-      self.network.stabilize();
+      if (self.network) {
+        // only set diff
+        self.network.setOptions({
+          physics: {
+            solver: self.solver
+          },
+          layout: {
+            hierarchical: clone(self.options.layout.hierarchical)
+          },
+          edges: {
+            smooth: clone(self.options.edges.smooth)
+          }
+        });
+        self.network.stabilize();
+      }
     };
 
     return {
@@ -508,8 +611,9 @@ var mlvisjs = (function () {
         // hook up user interaction
         var physics = container.querySelectorAll('input[name="physicsEnabled"]');
         if (physics.length === 1) {
-          self.network.setPhysics(physics[0].checked);
-          physics[0].onchange = function() {
+          physics[0].checked = self.network.physics;
+          physics[0].onchange = function(event) {
+            event.preventDefault();
             self.network.setPhysics(physics[0].checked);
           };
         } else if (physics.length > 1) {
@@ -520,8 +624,9 @@ var mlvisjs = (function () {
 
         var layout = container.querySelectorAll('select[name="layout"]');
         if (layout.length === 1) {
-          self.network.setLayout(layout[0].value);
-          layout[0].onchange = function() {
+          layout[0].value = self.network.layout;
+          layout[0].onchange = function(event) {
+            event.preventDefault();
             self.network.setLayout(layout[0].value);
           };
         } else if (layout.length > 1) {
@@ -562,6 +667,52 @@ var mlvisjs = (function () {
       initContainer(self.container, self.template);
     }
   };
+
+  GraphManager.prototype = (function() {
+    var setPhysics = function(physics) {
+      var self = this;
+
+      var elem = self.container.querySelectorAll('input[name="physicsEnabled"]');
+      if (elem.length === 1) {
+        elem[0].checked = physics;
+
+        if (self.network) {
+          self.network.setPhysics(physics);
+        }
+      }
+    };
+
+    var setLayout = function(layout) {
+      var self = this;
+
+      var elem = self.container.querySelectorAll('select[name="layout"]');
+      if (elem.length === 1) {
+        elem[0].value = layout;
+
+        if (self.network) {
+          self.network.setLayout(layout);
+        }
+      }
+    };
+
+    var setStyling = function(styling) {
+      var self = this;
+
+      self.styling = styling;
+
+      var root = self.container.firstElementChild;
+
+      root.className = root.className.split(' ').filter(function(c) {
+        return c.indexOf('-style') < 0;
+      }).join(' ') + ' ' + styling + '-style';
+    };
+
+    return {
+      setPhysics: setPhysics,
+      setLayout: setLayout,
+      setStyling: setStyling
+    };
+  })();
 
   return {
     Network: NetworkManager,
@@ -621,4 +772,21 @@ var mlvisjs = (function () {
     return typeof value === 'function';
   }
 
+  function clone(obj) {
+    if (Array.isArray(obj)) {
+      return obj.map(function(item) {
+        return clone(item);
+      });
+    } else if ( (typeof obj === 'object') && (obj !== null) ) {
+      return Object.keys(obj).reduce(
+        function(res, e) {
+          res[e] = clone(obj[e]);
+          return res;
+        },
+        {}
+      );
+    } else {
+      return obj;
+    }
+  }
 })();
