@@ -1,5 +1,25 @@
 # Change Log
 
+## [0.5.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.5.0) (2018-08-25)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.4.0...0.5.0)
+
+**Implemented enhancements:**
+
+- gracefully fallback when fontawesome not available [\#17](https://github.com/grtjn/ml-visjs-graph.js/issues/17)
+- Apply fit after NetworkManager.setData [\#9](https://github.com/grtjn/ml-visjs-graph.js/issues/9)
+- Document how to link to css/less [\#8](https://github.com/grtjn/ml-visjs-graph.js/issues/8)
+
+**Fixed bugs:**
+
+- 'Hierarchy - Top' layout is not applying hierarchical physics [\#16](https://github.com/grtjn/ml-visjs-graph.js/issues/16)
+- Flip edge smooth type when changing hierarchy direction [\#15](https://github.com/grtjn/ml-visjs-graph.js/issues/15)
+- Nav icon positioning is broken [\#14](https://github.com/grtjn/ml-visjs-graph.js/issues/14)
+- Typo in event name doubleClick [\#13](https://github.com/grtjn/ml-visjs-graph.js/issues/13)
+- Don't use 'arguments' in events handler [\#12](https://github.com/grtjn/ml-visjs-graph.js/issues/12)
+- Edge config ignored if setLayout is used [\#11](https://github.com/grtjn/ml-visjs-graph.js/issues/11)
+- Detect removal of nodes, and remove them [\#10](https://github.com/grtjn/ml-visjs-graph.js/issues/10)
+- Expose setLayout and setPhysics in GraphManager [\#7](https://github.com/grtjn/ml-visjs-graph.js/issues/7)
+
 ## [0.4.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.4.0) (2018-08-20)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.3.1...0.4.0)
 
