@@ -1,8 +1,6 @@
 # ml-visjs-graph.js
 Graph visualization for triples stored in MarkLogic, based on the VisJS Network library
 
-Note: WORK IN PROGRESS!
-
 ## Usage
 
 Pull latest version from npm:
@@ -13,7 +11,17 @@ Import in your UI project to start making use of it:
 
 - `var mlvisjs = require('ml-visjs-graph');` or `import * as mlvisjs from 'ml-visjs-graph';`
 
-Grab hold of a DOM element to use as container, initialize a Graph, and apply your data and options:
+Also link or import css of vis.js, and css or less from ml-visjs-graph:
+
+- add `<link rel="stylesheet" href="/bower_components/vis/dist/vis.css" />` in your index.html
+- and `@import "../../node_modules/ml-visjs-graph/less/ml-visjs-graph.js.less";` in some less file inside your project
+
+or add the following in your JavaScript component when using something like webpack:
+
+- `import 'vis/dist/vis.css';`
+- `import 'ml-visjs-graph/less/ml-visjs-graph.js.less';`
+
+Inside your JavaScript component, grab hold of a DOM element to use as container, initialize a Graph, and apply your data and options:
 
 (taken from Vue code:)
 
@@ -47,7 +55,7 @@ Note: you can also pull it from bower, and use this code in the browser directly
 Important notes related to usage within Vue.js:
 
 - Don't add this.graph to the `data` properties of a component. The observer wrappers will mess up the `vis` code embedded inside. Just assign to `this` without pre-declaring it. That is a valid and approved way to have properties that are not 'observed'.
-- You need to unwrap nodes and edges, and likely also options, before passing them through. Here an example to do so. You can use computed properties to apply this efficiently:
+- You need to unwrap nodes and edges, and likely also options, when passed in via component properties, before passing them through. Here an example how to do so. You can use computed properties to apply this efficiently:
 
         function observerClean (obj) {
           if (Array.isArray(obj)) {
@@ -62,7 +70,7 @@ Important notes related to usage within Vue.js:
           }
         }
 
-- Don't use v-show on containers wrapping the graph, or use an extra v-if to re-insert the graph as soon as it gets exposed. Adding visjs graphs to hidden containers causes their canvas to malfunction.
+- Don't use v-show but v-if to hide containers wrapping the graph, or use an extra v-if to re-insert the graph as soon as it gets exposed. Adding visjs graphs to hidden containers causes their canvas to malfunction.
 
 ## Development
 
