@@ -3,12 +3,6 @@
 .mlvisjs-graph {
   position: relative;
 
-  // Network above the layout / physics div
-  // Seems to screw up clicking of network, tools, and controls..
-  // .vis-network {
-  //   z-index: 1;
-  // }
-
   .vis-network {
     border: 1px solid #999;
   }
@@ -37,7 +31,7 @@
     }
   }
 
-  .fontawesome {
+  &.fontawesome-style {
     .vis-network {
 
       // edit mode toggle
@@ -194,6 +188,8 @@
       }
 
       .vis-button {
+        position: absolute;
+
         &.vis-up,
         &.vis-down,
         &.vis-left,
