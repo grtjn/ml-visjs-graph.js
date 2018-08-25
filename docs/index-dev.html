@@ -68,6 +68,8 @@
             }
 
             new mlvisjs.Graph(element[0], null, null, function done(graph) {
+              graph.setStyling('fontawesome');
+
               $scope.$watch('items', function (data) {
                 if (data) {
                   graph.network.setData(data.nodes, null, data.edges, null);
