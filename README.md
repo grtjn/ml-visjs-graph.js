@@ -81,7 +81,7 @@ Pre-requisites:
 - node (v8+)
 - npm (v5+)
 - bower
-- gulp (v4+)
+- gulp-cli (v4+). Run `npm install --global gulp-cli`. See https://github.com/gulpjs/gulp/blob/master/docs/getting-started/1-quick-start.md for details.
 
 To setup:
 
