@@ -67,9 +67,7 @@ var mlvisjs = (function () {
       borderWidth: 2,
       shadow: true,
       borderWidthSelected: 6,
-      shape: 'circularImage',
-      brokenImage: 'dist/images/generic.png',
-      image: 'images/generic.png',
+      shape: 'dot',
       color: {
         background: 'white',
       },
