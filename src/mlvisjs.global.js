@@ -67,9 +67,8 @@ var mlvisjs = (function () {
       borderWidth: 2,
       shadow: true,
       borderWidthSelected: 6,
-      shape: 'dot',
       color: {
-        background: 'white',
+        background: 'white'
       },
       font: {
         size: 12
