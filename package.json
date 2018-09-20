@@ -51,6 +51,7 @@
     "javascript"
   ],
   "author": "grtjn",
+  "contributors": ["patrickmcelwee"],
   "bugs": {
     "url": "https://github.com/grtjn/ml-visjs-graph.js/issues"
   },

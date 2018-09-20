@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.5.1](https://github.com/grtjn/ml-visjs-graph.js/tree/0.5.1) (2018-09-20)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.5.0...0.5.1)
+
+**Fixed bugs:**
+
+- Note that users need gulp-cli globally now [\#22](https://github.com/grtjn/ml-visjs-graph.js/issues/22)
+- Fix endless image errors [\#21](https://github.com/grtjn/ml-visjs-graph.js/issues/21)
+
+**Merged pull requests:**
+
+- Bugfix release 0.5.1 [\#26](https://github.com/grtjn/ml-visjs-graph.js/pull/26) ([patrickmcelwee](https://github.com/patrickmcelwee))
+- Fix endless image errors [\#19](https://github.com/grtjn/ml-visjs-graph.js/pull/19) ([patrickmcelwee](https://github.com/patrickmcelwee))
+- Note that we now need gulp-cli globally [\#18](https://github.com/grtjn/ml-visjs-graph.js/pull/18) ([patrickmcelwee](https://github.com/patrickmcelwee))
+
 ## [0.5.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.5.0) (2018-08-25)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.4.0...0.5.0)
 
