@@ -51,9 +51,15 @@
     "marklogic",
     "javascript"
   ],
-  "author": "grtjn",
+  "author": {
+    "name": "Geert Josten",
+    "url": "https://github.com/grtjn"
+  },
   "contributors": [
-    "patrickmcelwee"
+    {
+      "name": "Patrick McElwee",
+      "url": "https://github.com/patrickmcelwee"
+    }
   ],
   "bugs": {
     "url": "https://github.com/grtjn/ml-visjs-graph.js/issues"
