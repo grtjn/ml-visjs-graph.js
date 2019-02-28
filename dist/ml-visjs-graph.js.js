@@ -67,6 +67,27 @@ var mlvisjs = (function () {
     'zoom'
   ];
 
+  var allTimelineEvents = [
+    'currentTimeTick',
+    'click',
+    'contextmenu',
+    'doubleClick',
+    'drop',
+    'mouseOver',
+    'mouseDown',
+    'mouseUp',
+    'mouseMove',
+    'groupDragged',
+    'changed',
+    'rangechange',
+    'rangechanged',
+    'select',
+    'itemover',
+    'itemout',
+    'timechange',
+    'timechanged'
+  ];
+
   // static defaults
   var initialPhysics = true;
   var initialSolver = 'forceAtlas2Based';
@@ -151,6 +172,8 @@ var mlvisjs = (function () {
       }
     }
   };
+
+  var initialTimelineOptions = {};
 
   var initialOrbColors = {
     // light colors for the odd positions
@@ -736,9 +759,197 @@ var mlvisjs = (function () {
     };
   })();
 
+  var TimelineManager = function(container) {
+    var self = this;
+
+    // assert visjs is loaded and available
+    if (!vis || !vis.DataSet || !vis.Timeline) {
+      throw 'Error: vis.DataSet and vis.Timeline not found, required by mlvisjs';
+    }
+
+    // store arguments as is
+    self.container = container;
+
+    // dynamic defaults
+    var items = new vis.DataSet();
+    var groups = new vis.DataSet();
+
+    self.items = items;
+    self.groups = groups;
+    self.options = clone(initialTimelineOptions);
+
+    // initialize visjs Timeline
+    self.timeline = new vis.Timeline(self.container, self.items, self.groups, clone(self.options));
+
+    // apply defaults
+    self.setEvents();
+    self.setLayout();
+    self.setPhysics();
+    self.setSolver();
+  };
+
+  TimelineManager.prototype = (function() {
+    var setData = function(items, itemOptions, groups, groupOptions) {
+      var self = this;
+      var existingIds, newIds, missingIds;
+
+      if (arguments.length > 0) {
+        if (self.items && items) {
+          // flush what has disappeared
+          existingIds = self.items.getIds();
+          newIds = items.map(function(item) {
+            return item.id;
+          });
+          missingIds = existingIds.filter(function(id) {
+            return !newIds.includes(id);
+          });
+          self.items.remove(missingIds);
+
+          // add new, and update existing
+          self.items.update(items);
+          if (itemOptions) {
+            self.items.setOptions(clone(itemOptions));
+          }
+        } else if (items) {
+          throw 'Error: items DataSet not initialized';
+        }
+
+        if (self.groups && groups) {
+          // flush what has disappeared
+          existingIds = self.groups.getIds();
+          newIds = groups.map(function(group) {
+            return group.id;
+          });
+          missingIds = existingIds.filter(function(id) {
+            return !newIds.includes(id);
+          });
+          self.groups.remove(missingIds);
+
+          // add new, and update existing
+          self.groups.update(groups);
+          if (groupOptions) {
+            self.groups.setOptions(clone(groupOptions));
+          }
+        } else if (groups) {
+          throw 'Error: groups DataSet not initialized';
+        }
+      } else {
+        items = new vis.DataSet();
+        groups = new vis.DataSet();
+
+        var initialData = {
+          items: items,
+          groups: groups
+        };
+
+        self.items = items;
+        self.groups = groups;
+
+        if (itemOptions) {
+          self.items.setOptions(clone(itemOptions));
+        }
+        if (groupOptions) {
+          self.groups.setOptions(clone(groupOptions));
+        }
+
+        if (self.timeline) {
+          self.timeline.setData(initialData);
+          self.timeline.fit();
+        }
+      }
+    };
+
+    var setEvents = function(events) {
+      var self = this;
+      var doubleclick;
+
+      if (self.timeline) {
+        if (arguments.length === 0) {
+          allTimelineEvents.forEach(function(event) {
+            self.timeline.off(event);
+          });
+        }
+
+        events = events || {};
+
+        forEach(events, function(callback, event) {
+          if (isFunction(callback)) {
+
+            // decorate provided event callbacks with built-in extras
+            switch (String(event)) {
+              case 'click':
+                self.timeline.on(event, function(arg) {
+                  doubleclick = false;
+                  window.setTimeout(function() {
+                    if (! doubleclick) {
+                      callback.call(self, arg);
+                    }
+                  }, 300);
+                });
+                break;
+
+              case 'doubleClick':
+                self.timeline.on(event, function(arg) {
+                  doubleclick = true;
+                  callback.call(self, arg);
+                });
+                break;
+
+              case 'onload':
+                callback(self);
+                break;
+
+              default:
+                self.timeline.on(event, callback);
+            } // switch
+
+          }
+        }); // forEach(events)
+      }
+    }; // setEvents
+
+    var setOptions = function(timelineOptions) {
+      var self = this;
+
+      if (timelineOptions !== undefined) {
+        self.options = self.options || clone(initialTimelineOptions);
+
+        // merge options (crude method)
+        Object.keys(timelineOptions).forEach(function(key) {
+          var option = timelineOptions[key];
+
+          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) ) {
+            self.options[key] = self.options[key] || {};
+
+            Object.keys(option).forEach(function(subkey) {
+              var suboption = option[subkey];
+              self.options[key][subkey] = clone(suboption);
+            });
+
+          } else {
+            self.options[key] = option;
+          }
+        });
+      } else {
+        self.options = clone(initialTimelineOptions);
+      }
+
+      if (self.timeline) {
+        self.timeline.setOptions(clone(self.options));
+      }
+    };
+
+    return {
+      setData: setData,
+      setEvents: setEvents,
+      setOptions: setOptions
+    };
+  })();
+
   return {
     Network: NetworkManager,
-    Graph: GraphManager
+    Graph: GraphManager,
+    Timeline: TimelineManager
   };
 
   /* HELPER FUNCTIONS */
