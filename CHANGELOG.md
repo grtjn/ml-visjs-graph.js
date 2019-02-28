@@ -1,5 +1,17 @@
 # Change Log
 
+## [0.6.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.6.0) (2019-02-28)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.5.1...0.6.0)
+
+**Implemented enhancements:**
+
+- Add support for Visjs Timeline [\#30](https://github.com/grtjn/ml-visjs-graph.js/issues/30)
+
+**Merged pull requests:**
+
+- \#30: added Timeline support [\#31](https://github.com/grtjn/ml-visjs-graph.js/pull/31) ([grtjn](https://github.com/grtjn))
+- Add build script [\#29](https://github.com/grtjn/ml-visjs-graph.js/pull/29) ([patrickmcelwee](https://github.com/patrickmcelwee))
+
 ## [0.5.1](https://github.com/grtjn/ml-visjs-graph.js/tree/0.5.1) (2018-09-20)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.5.0...0.5.1)
 
@@ -19,7 +31,6 @@
 
 **Implemented enhancements:**
 
-- gracefully fallback when fontawesome not available [\#17](https://github.com/grtjn/ml-visjs-graph.js/issues/17)
 - Apply fit after NetworkManager.setData [\#9](https://github.com/grtjn/ml-visjs-graph.js/issues/9)
 - Document how to link to css/less [\#8](https://github.com/grtjn/ml-visjs-graph.js/issues/8)
 
