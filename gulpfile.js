@@ -17,7 +17,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     minifyCss = require('gulp-cssnano'),
     sourcemaps = require('gulp-sourcemaps'),
-    info = require('gulp-print'),
+    info = require('gulp-print').default,
     rm = require('gulp-rm'),
 cp = require('child_process');
 
