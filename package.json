@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "angular-jsdoc": "^1.5.1",
+    "extend": "^3.0.2",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.2.0",
     "gulp-cssnano": "^2.1.3",
