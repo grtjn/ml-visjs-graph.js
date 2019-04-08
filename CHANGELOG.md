@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.6.1](https://github.com/grtjn/ml-visjs-graph.js/tree/0.6.1) (2019-04-08)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.6.0...0.6.1)
+
+**Fixed bugs:**
+
+- Orb labels not aligned properly [\#34](https://github.com/grtjn/ml-visjs-graph.js/issues/34)
+- TimelineManager invokes non-existing setLayout [\#33](https://github.com/grtjn/ml-visjs-graph.js/issues/33)
+
 ## [0.6.0](https://github.com/grtjn/ml-visjs-graph.js/tree/0.6.0) (2019-02-28)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.5.1...0.6.0)
 
@@ -31,6 +39,7 @@
 
 **Implemented enhancements:**
 
+- gracefully fallback when fontawesome not available [\#17](https://github.com/grtjn/ml-visjs-graph.js/issues/17)
 - Apply fit after NetworkManager.setData [\#9](https://github.com/grtjn/ml-visjs-graph.js/issues/9)
 - Document how to link to css/less [\#8](https://github.com/grtjn/ml-visjs-graph.js/issues/8)
 
