@@ -353,7 +353,7 @@ var mlvisjs = (function () {
                         }
 
                         var label = orb.label;
-                        var font = orb.font || '10px Ludica';
+                        var font = orb.font || '10px Arial';
                         var measure = (label && getMeasureOfText(label, font)) ||
                           {
                             width: orb.width || 10,
@@ -364,7 +364,7 @@ var mlvisjs = (function () {
                             Math.max(measure.width, measure.height) ||
                               10
                           ) / 2
-                        ) + 2;
+                        ) + 3;
 
                         var lineStyle = orb.lineStyle || 'white';
                         var background = orb.background || self.orbColors[key];
@@ -385,8 +385,8 @@ var mlvisjs = (function () {
                           ctx.fillStyle = textColor;
                           ctx.fillText(
                             label,
-                            x,
-                            y - (measure.height / 3)
+                            x - (measure.width / 2),
+                            y + 1 // compensating for the padding
                           );
                         } else if (orb.image) {
                           var img = new Image();
@@ -758,9 +758,6 @@ var mlvisjs = (function () {
 
     // apply defaults
     self.setEvents();
-    self.setLayout();
-    self.setPhysics();
-    self.setSolver();
   };
 
   TimelineManager.prototype = (function() {

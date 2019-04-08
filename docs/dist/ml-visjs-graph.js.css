@@ -214,3 +214,6 @@
 .mlvisjs-graph.fontawesome-style .vis-navigation .vis-button.vis-zoomExtends:hover:before {
   font-size: 21px;
 }
+.vis-timeline {
+  visibility: visible !important;
+}

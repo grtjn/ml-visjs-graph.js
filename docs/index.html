@@ -18,6 +18,7 @@
           }
         }
       }"></ml-visjs-graph>
+      <ml-visjs-timeline groups="groups" items="items" options="{ groupOrder: 'content' }"></ml-visjs-timeline>
     </div>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/vis/dist/vis.min.js"></script>
@@ -99,6 +100,53 @@
           }
         };
       }])
+      .directive('mlVisjsTimeline', [function() {
+        return {
+          restrict: 'E',
+          scope: {
+            groups: '=?',
+            items: '=?',
+            timeline: '=?',
+            customTimelineOptions: '=?timelineOptions',
+            customTimelineEvents: '=?timelineEvents'
+          },
+          template: '<div></div>',
+          link: function($scope, element, attrs) {
+
+            if (!mlvisjs) {
+              throw 'Error: mlvisjs not found, required by mlVisjsTimeline directive';
+            }
+
+            var timeline = new mlvisjs.Timeline(element[0]);
+
+            $scope.$watch('groups', function (groups) {
+              if (groups) {
+                timeline.setData(null, null, groups, null);
+              }
+            });
+
+            $scope.$watch('items', function (items) {
+              if (items) {
+                timeline.setData(items, null, null, null);
+              }
+            });
+
+            $scope.$watchCollection('customGraphOptions', function (options) {
+              if (options) {
+                timeline.setOptions(options);
+              }
+            });
+
+            $scope.$watch('customGraphEvents', function (events) {
+              if (events) {
+                timeline.setEvents(events);
+              }
+            });
+
+            $scope.timeline = timeline;
+          }
+        };
+      }])
       .controller('ctrl', ['$scope', '$q', function($scope, $q) {
         var ctrl = this;
         $scope.uris = ['someuri'];
@@ -143,6 +191,7 @@
                   font: '10px Glyphicons Halflings',
                   label: '\ue013' // we look for this to add an small orb to the icon
                 }, SW: {
+                  font: '20px Arial',
                   label: 'W' // we look for this to add an small orb to the icon
                 }, W: {
                   font: '10px FontAwesome',
@@ -166,6 +215,34 @@
             ]
           });
         }
+
+        var groupCount = 3;
+        var itemCount = 20;
+
+        // create a data set with groups
+        var names = ['John', 'Alston', 'Lee', 'Grant'];
+        var groups = [];
+        for (var g = 0; g < groupCount; g++) {
+          groups.push({id: g, content: names[g]});
+        }
+
+        // create a dataset with items
+        var items = [];
+        for (var i = 0; i < itemCount; i++) {
+          var start = new Date();
+          start.setHours(start.getHours() + Math.random() * 200);
+          var group = Math.floor(Math.random() * groupCount);
+          items.push({
+            id: i,
+            group: group,
+            content: 'item ' + i +
+                ' <span style="color:#97B0F8;">(' + names[group] + ')</span>',
+            start: start,
+            type: 'box'
+          });
+        }
+        $scope.groups = groups;
+        $scope.items = items;
       }]);
     </script>
   </body>
