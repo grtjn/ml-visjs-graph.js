@@ -454,7 +454,7 @@ var mlvisjs = (function () {
         Object.keys(networkOptions).forEach(function(key) {
           var option = networkOptions[key];
 
-          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) ) {
+          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) && !(Object.prototype.toString.call(option) === '[object Date]')) {
             self.options[key] = self.options[key] || {};
 
             Object.keys(option).forEach(function(subkey) {
@@ -915,7 +915,7 @@ var mlvisjs = (function () {
         Object.keys(timelineOptions).forEach(function(key) {
           var option = timelineOptions[key];
 
-          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) ) {
+          if ((typeof option === 'object') && (option !== null) && !Array.isArray(option) && !(Object.prototype.toString.call(option) === '[object Date]')) {
             self.options[key] = self.options[key] || {};
 
             Object.keys(option).forEach(function(subkey) {
@@ -1007,6 +1007,8 @@ var mlvisjs = (function () {
       return obj.map(function(item) {
         return clone(item);
       });
+    } else if (Object.prototype.toString.call(obj) === '[object Date]') {
+      return new Date(obj.valueOf());
     } else if ( (typeof obj === 'object') && (obj !== null) ) {
       return Object.keys(obj).reduce(
         function(res, e) {
