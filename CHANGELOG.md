@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.6.2](https://github.com/grtjn/ml-visjs-graph.js/tree/0.6.2) (2019-04-09)
+[Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.6.1...0.6.2)
+
+**Fixed bugs:**
+
+- Date properties in options get mangled [\#35](https://github.com/grtjn/ml-visjs-graph.js/issues/35)
+
 ## [0.6.1](https://github.com/grtjn/ml-visjs-graph.js/tree/0.6.1) (2019-04-08)
 [Full Changelog](https://github.com/grtjn/ml-visjs-graph.js/compare/0.6.0...0.6.1)
 
